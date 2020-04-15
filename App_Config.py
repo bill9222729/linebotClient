@@ -1,0 +1,15 @@
+serverId = 'Ua43fe52eaf79dba484bc538958df4435'
+
+LineBot_Token = 'ASWKfQvAGiXrAOCMcRoc0+vUMYY8hFUFOFFbIgOhBF4v6MIWjr9aHvsdkKrIXdN8MO4vduONxiuFu84dDTcGzGpy6u8umCW0ifDavs3yiPoVdZ94Kk5uKkL25553eygfgdkgCqAcZninEIk5n06J9gdB04t89/1O/w1cDnyilFU='
+LineBot_Secret = '85c2f8b8a8b85fb2fd4050f10a9dffc9'
+Server_LineBot_Token = 'r3Vd2DMVe4ZRSPsC4/zQVzJlfBM6d4oayYSFtwAU5VuRgnfJDrl4HevnSNcW5O6NO1ryrqJJ6cVMvm4j1PNHQ2NBocWCdz9ZEXtUg3cGAAr5+MUZ3kzrfcveN81ZP+pTXRdSyE47DQZS4POJT4eG3QdB04t89/1O/w1cDnyilFU='
+Server_LineBot_Online_Token = 'r3Vd2DMVe4ZRSPsC4/zQVzJlfBM6d4oayYSFtwAU5VuRgnfJDrl4HevnSNcW5O6NO1ryrqJJ6cVMvm4j1PNHQ2NBocWCdz9ZEXtUg3cGAAr5+MUZ3kzrfcveN81ZP+pTXRdSyE47DQZS4POJT4eG3QdB04t89/1O/w1cDnyilFU='
+
+Firebase_JsonPath = './firebase_resv1.json'
+
+# rich menu id
+# 客戶端: 6a740f5e73525c3cd511fa71d2cf046b
+Richmenu_Client_Id = 'richmenu-6f3c43f6b9669744c332fe76eb30027a'
+
+# 店家名稱
+Restaurant_Name = '阿卡那咖啡坊'
