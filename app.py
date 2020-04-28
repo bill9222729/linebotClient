@@ -19,6 +19,10 @@
     20200324
     圖片問題暫時無法處理
 '''
+import sys
+sys.path.append('C:\\Users\\niuadslab\\AppData\\Local\\Programs\\Python\\Python37\\Lib\\site-packages')
+sys.path.append('C:\\linebotClient')
+
 from flask import Flask, request, abort
 
 from linebot import (
@@ -56,9 +60,9 @@ firedb = firestore.client()
 ''' firebase setting end '''
 
 from datetime import datetime
-import cv2
+#import cv2
 #import zbar
-from pyzbar import pyzbar
+#from pyzbar import pyzbar
 #from qrtools.qrtools import QR
 #import qrtools
 
@@ -66,6 +70,9 @@ from pyzbar import pyzbar
 from model.message import AllMessage
 #from model.menu import Menus
 
+@app.route('/')
+def index():
+    return "Hello World!!!"
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -470,43 +477,45 @@ def handle_message(event):
     print(event)
     filepath = './test.jpg'
     UserId = event.source.user_id
-    ert = event.reply_token
-    firebase_rec = {}
-    doc_ref = firedb.collection('內用購物車').document(UserId)
-    doc = doc_ref.get()
-    message_content = line_bot_api.get_message_content(event.message.id)
-    with open(filepath, 'wb') as fd:
-        for chunk in message_content.iter_content():
-            fd.write(chunk)
-    try:
-        m1 = cv2.imread(filepath, 1)
-        r = pyzbar.decode(m1)
-        msg = ""
-        for i,d in enumerate(r):
-            msg = d.data.decode("UTF-8")
-            #print("第",i+1,"個條碼, 類型:",d.type,", 內容:",d.data.decode("UTF-8"))
-        #print(UserImg)
-        if 'akanar' in msg: # 金鑰認證
-            table = msg.split(' ')[1]
-            firebase_rec['桌號'] = table
-            if doc.to_dict() == None: # 無過往紀錄
-                doc_ref.set(firebase_rec)
-            else:
-                doc_ref.update(firebase_rec) # update 桌號
-
-            doc_ref = firedb.collection('是否訂位').document(UserId)
-            firebase_rec = {}
-            firebase_rec['status'] = 'oin'
-            firebase_rec['step'] = '1'
-            doc_ref.update(firebase_rec) # update 狀態
-
-            Menu_Message = AllMessage.Menu_Message()
-            line_bot_api.push_message(UserId, Menu_Message)
-        else:
-            line_bot_api.push_message(UserId, TextSendMessage(text='QRcode的內容為: ' + msg))
-    except:
-        line_bot_api.push_message(UserId, TextSendMessage(text='圖片不是QRcode,請上傳QRcode圖片'))
-    return 0
+    line_bot_api.push_message(UserId, TextSendMessage(text='QRCode Fixing'))
+    return 'ok'
+    # ert = event.reply_token
+    # firebase_rec = {}
+    # doc_ref = firedb.collection('內用購物車').document(UserId)
+    # doc = doc_ref.get()
+    # message_content = line_bot_api.get_message_content(event.message.id)
+    # with open(filepath, 'wb') as fd:
+    #     for chunk in message_content.iter_content():
+    #         fd.write(chunk)
+    # try:
+    #     m1 = cv2.imread(filepath, 1)
+    #     r = pyzbar.decode(m1)
+    #     msg = ""
+    #     for i,d in enumerate(r):
+    #         msg = d.data.decode("UTF-8")
+    #         #print("第",i+1,"個條碼, 類型:",d.type,", 內容:",d.data.decode("UTF-8"))
+    #     #print(UserImg)
+    #     if 'akanar' in msg: # 金鑰認證
+    #         table = msg.split(' ')[1]
+    #         firebase_rec['桌號'] = table
+    #         if doc.to_dict() == None: # 無過往紀錄
+    #             doc_ref.set(firebase_rec)
+    #         else:
+    #             doc_ref.update(firebase_rec) # update 桌號
+    #
+    #         doc_ref = firedb.collection('是否訂位').document(UserId)
+    #         firebase_rec = {}
+    #         firebase_rec['status'] = 'oin'
+    #         firebase_rec['step'] = '1'
+    #         doc_ref.update(firebase_rec) # update 狀態
+    #
+    #         Menu_Message = AllMessage.Menu_Message()
+    #         line_bot_api.push_message(UserId, Menu_Message)
+    #     else:
+    #         line_bot_api.push_message(UserId, TextSendMessage(text='QRcode的內容為: ' + msg))
+    # except:
+    #     line_bot_api.push_message(UserId, TextSendMessage(text='圖片不是QRcode,請上傳QRcode圖片'))
+    # return 0
 
 # 使用者加入Line好友的時候
 @handler.add(FollowEvent)
